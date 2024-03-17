@@ -1,4 +1,5 @@
-import { Server as WebSocketServer } from 'ws';
+const { WebSocketServer } = require('ws').Server;
+
 wss = new WebSocketServer({port: 8080, path: '/home'});
 wss.on('connection', function(ws) {
     const messageData = ""

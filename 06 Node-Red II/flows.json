@@ -1,0 +1,277 @@
+[
+    {
+        "id": "70e81314ed374172",
+        "type": "tab",
+        "label": "Fluxo 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "12f3880abc0e04e6",
+        "type": "ui_chart",
+        "z": "70e81314ed374172",
+        "name": "",
+        "group": "641235355f36f5d7",
+        "order": 1,
+        "width": 10,
+        "height": 6,
+        "label": "",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "cubic",
+        "nodata": "",
+        "dot": true,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 910,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "14ecedb271e25909",
+        "type": "inject",
+        "z": "70e81314ed374172",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "num"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "jsonata",
+        "x": 400,
+        "y": 280,
+        "wires": [
+            [
+                "d2720a59cb3125a1"
+            ]
+        ]
+    },
+    {
+        "id": "d2720a59cb3125a1",
+        "type": "function",
+        "z": "70e81314ed374172",
+        "name": "",
+        "func": "msg.payload = Math.random() * 100\nmsg.topic = \"Temp 2\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 340,
+        "wires": [
+            [
+                "12f3880abc0e04e6"
+            ]
+        ]
+    },
+    {
+        "id": "b32a06139ea4b932",
+        "type": "ui_audio",
+        "z": "70e81314ed374172",
+        "name": "",
+        "group": "8975b7d876c347e4",
+        "voice": "Microsoft Daniel - Portuguese (Brazil)",
+        "always": true,
+        "x": 1480,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "a3744717de4a8635",
+        "type": "mqtt out",
+        "z": "70e81314ed374172",
+        "name": "",
+        "topic": "mqtt/message/",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "407a01e4.6b637",
+        "x": 340,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "321ea9d59acb3a40",
+        "type": "mqtt in",
+        "z": "70e81314ed374172",
+        "name": "",
+        "topic": "mqtt/message/",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "407a01e4.6b637",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 300,
+        "y": 720,
+        "wires": [
+            [
+                "015eef5968b80936"
+            ]
+        ]
+    },
+    {
+        "id": "91a33e0f4767d8e2",
+        "type": "websocket in",
+        "z": "70e81314ed374172",
+        "name": "",
+        "server": "",
+        "client": "ab5a8091c3e5c4eb",
+        "x": 110,
+        "y": 620,
+        "wires": [
+            [
+                "a3744717de4a8635"
+            ]
+        ]
+    },
+    {
+        "id": "16e7578102a10fb8",
+        "type": "file in",
+        "z": "70e81314ed374172",
+        "name": "",
+        "filename": "\"C:\\Users\\Gilberto Medeiros\\Downloads\\salamisound-2448919-alarm-siren-once-howling.mp3\"",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 990,
+        "y": 700,
+        "wires": [
+            [
+                "b32a06139ea4b932"
+            ]
+        ]
+    },
+    {
+        "id": "015eef5968b80936",
+        "type": "function",
+        "z": "70e81314ed374172",
+        "name": "function 2",
+        "func": "if (msg.payload.voltagem > 220) {\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 720,
+        "wires": [
+            [
+                "16e7578102a10fb8"
+            ]
+        ]
+    },
+    {
+        "id": "641235355f36f5d7",
+        "type": "ui_group",
+        "name": "Function",
+        "tab": "864b451c064548f3",
+        "order": 1,
+        "disp": true,
+        "width": 10,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8975b7d876c347e4",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "3bd5a3e5b4376e02",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "407a01e4.6b637",
+        "type": "mqtt-broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "ab5a8091c3e5c4eb",
+        "type": "websocket-client",
+        "path": "ws://localhost:8080/",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": ""
+    },
+    {
+        "id": "864b451c064548f3",
+        "type": "ui_tab",
+        "name": "Chart",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "3bd5a3e5b4376e02",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

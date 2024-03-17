@@ -1,0 +1,270 @@
+[
+    {
+        "id": "d294583f11a91457",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "89b8c71e603a821a",
+        "type": "aedes broker",
+        "z": "d294583f11a91457",
+        "name": "",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "persistence_bind": "memory",
+        "dburl": "",
+        "usetls": false,
+        "x": 630,
+        "y": 1020,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "26b1ba11c4f377f2",
+        "type": "mqtt out",
+        "z": "d294583f11a91457",
+        "name": "",
+        "topic": "mqtt/message/",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "407a01e4.6b637",
+        "x": 600,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e5e6d0c87e7121b2",
+        "type": "debug",
+        "z": "d294583f11a91457",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6a501cb8d3d8cc92",
+        "type": "mqtt in",
+        "z": "d294583f11a91457",
+        "name": "",
+        "topic": "mqtt/message/",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "407a01e4.6b637",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 600,
+        "y": 280,
+        "wires": [
+            [
+                "e5e6d0c87e7121b2"
+            ]
+        ]
+    },
+    {
+        "id": "940a416a46cc3505",
+        "type": "mqtt in",
+        "z": "d294583f11a91457",
+        "name": "",
+        "topic": "mqtt/message/",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "407a01e4.6b637",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 340,
+        "y": 440,
+        "wires": [
+            [
+                "2b0d439446dc2909"
+            ]
+        ]
+    },
+    {
+        "id": "2b0d439446dc2909",
+        "type": "function",
+        "z": "d294583f11a91457",
+        "name": "function 1",
+        "func": "if(msg.payload.voltagem >= 50) {\n    msg.payload.message = \"Voltagem com número arriscado\"\n    return msg;\n} else { \n    msg.payload.message = \"Voltagem com número normal\"\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 440,
+        "wires": [
+            [
+                "438c232a.06c2cc"
+            ]
+        ]
+    },
+    {
+        "id": "8a757c45c5d0aa42",
+        "type": "debug",
+        "z": "d294583f11a91457",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d4976e31db5dde92",
+        "type": "websocket in",
+        "z": "d294583f11a91457",
+        "name": "",
+        "server": "",
+        "client": "ab5a8091c3e5c4eb",
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "26b1ba11c4f377f2"
+            ]
+        ]
+    },
+    {
+        "id": "13410716.69c9d9",
+        "type": "websocket in",
+        "z": "d294583f11a91457",
+        "name": "",
+        "server": "89db22b6.9aa36",
+        "client": "",
+        "x": 760,
+        "y": 520,
+        "wires": [
+            [
+                "8a757c45c5d0aa42"
+            ]
+        ]
+    },
+    {
+        "id": "438c232a.06c2cc",
+        "type": "websocket out",
+        "z": "d294583f11a91457",
+        "name": "",
+        "server": "",
+        "client": "63620788.bda128",
+        "x": 780,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "55e6b089.e3da4",
+        "type": "debug",
+        "z": "d294583f11a91457",
+        "name": "Display event",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "75b9f7f0.4fa048",
+        "type": "sse-client",
+        "z": "d294583f11a91457",
+        "name": "",
+        "url": "http://localhost:9091",
+        "events": [
+            "patch"
+        ],
+        "headers": {},
+        "proxy": "",
+        "restart": true,
+        "rejectUnauthorized": false,
+        "withCredentials": true,
+        "timeout": "10",
+        "x": 530,
+        "y": 680,
+        "wires": [
+            [
+                "55e6b089.e3da4"
+            ]
+        ]
+    },
+    {
+        "id": "407a01e4.6b637",
+        "type": "mqtt-broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "ab5a8091c3e5c4eb",
+        "type": "websocket-client",
+        "path": "ws://localhost:8080/",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": ""
+    },
+    {
+        "id": "89db22b6.9aa36",
+        "type": "websocket-listener",
+        "path": "/ws1",
+        "wholemsg": "false"
+    },
+    {
+        "id": "63620788.bda128",
+        "type": "websocket-client",
+        "path": "ws://localhost:1880/ws1",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": ""
+    }
+]
